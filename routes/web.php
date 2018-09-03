@@ -11,16 +11,33 @@
 |
 */
 
+use App\User;
+
 Route::resource('articles', 'ArticleController');
 
-Route::get('/', function (\Illuminate\Http\Request $request) {
-    $user = $request->user();
+Route::get('/', function () {
+   DB::listen(function ($query) {
+     var_dump($query->sql);
+   });
 
-    $user->updatePermissionTo('edit posts'); //'edit posts', 'delete posts'
+   $user = User::find(1);
 
-    return new \Illuminate\Http\Response('hello', 200);
-//    var_dump($user->can('delete users'));
+   $user->messengers()->create([
+       'driver' => 'Telegram',
+       'chat_id' => '123456789'
+   ]);
+
+   dd($user->messengers);
+
 });
+//Route::get('/', function (\Illuminate\Http\Request $request) {
+//    $user = $request->user();
+//
+//    $user->updatePermissionTo('edit posts'); //'edit posts', 'delete posts'
+//
+//    return new \Illuminate\Http\Response('hello', 200);
+//    var_dump($user->can('delete users'));
+//});
 
 //Route::get('/', function () {
 //    return view('welcome');

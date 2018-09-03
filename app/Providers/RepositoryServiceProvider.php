@@ -4,11 +4,15 @@ namespace App\Providers;
 
 use App\Repositories\Eloquent\{
     EloquentUserRepository,
-    EloquentArticleRepository
+    EloquentArticleRepository,
+    EloquentAddressRepository,
+    EloquentMessengerRepository
 };
 use App\Repositories\Contracts\{
     UserRepository,
-    ArticleRepository
+    ArticleRepository,
+    AddressRepository,
+    MessengerRepository
 };
 use Illuminate\Support\ServiceProvider;
 
@@ -23,6 +27,8 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind(UserRepository::class, EloquentUserRepository::class);
         $this->app->bind(ArticleRepository::class, EloquentArticleRepository::class);
+        $this->app->bind(AddressRepository::class, EloquentAddressRepository::class);
+        $this->app->bind(MessengerRepository::class, EloquentMessengerRepository::class);
     }
 
     /**
