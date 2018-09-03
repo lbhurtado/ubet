@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Article;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -23,7 +24,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+//        Route::bind('article', function($value) {
+//            return Article::hasImage()->where('unique_id', $value)->first();
+//        });
+        // not a good idea!
 
         parent::boot();
     }

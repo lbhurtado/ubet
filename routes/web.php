@@ -11,6 +11,8 @@
 |
 */
 
+Route::resource('articles', 'ArticleController');
+
 Route::get('/', function (\Illuminate\Http\Request $request) {
     $user = $request->user();
 
