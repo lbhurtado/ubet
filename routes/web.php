@@ -15,21 +15,30 @@ use App\User;
 
 Route::resource('articles', 'ArticleController');
 
-Route::get('/', function () {
-   DB::listen(function ($query) {
-     var_dump($query->sql);
-   });
+//Route::get('/', function () {
+//   DB::listen(function ($query) {
+//     var_dump($query->sql);
+//   });
+//
+//   $user = User::find(1);
+//
+//   dd($user->phoneNumber->dialling_code->id);
 
-   $user = User::find(1);
+//   $user->phoneNumber()->create([
+//      'phone_number' => '9173011987',
+//       'dialling_code_id' => 171
+//   ]);
+//
+//       dd($user->phoneNumber);
 
-   $user->messengers()->create([
-       'driver' => 'Telegram',
-       'chat_id' => '123456789'
-   ]);
+//   $user->messengers()->create([
+//       'driver' => 'Telegram',
+//       'chat_id' => '123456789'
+//   ]);
+//
+//   dd($user->messengers);
 
-   dd($user->messengers);
-
-});
+//});
 //Route::get('/', function (\Illuminate\Http\Request $request) {
 //    $user = $request->user();
 //
@@ -39,9 +48,9 @@ Route::get('/', function () {
 //    var_dump($user->can('delete users'));
 //});
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::match(['get', 'post'], '/botman', 'BotManController@handle');
 Route::get('/botman/tinker', 'BotManController@tinker');
@@ -61,4 +70,13 @@ Route::group(['middleware' => 'role:admin'], function () {
     Route::get('/admin', function (){
         return 'Admin Panel';
     });
+});
+
+Route::get('/auth/token', 'Auth\AuthTokenController@getToken')->name('auth.token');
+Route::post('/auth/token', 'Auth\AuthTokenController@postToken');
+Route::get('/auth/token/resend', 'Auth\AuthTokenController@getResend')->name('auth.token.resend');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/settings/twofactor', 'TwoFactorSettingsController@index')->name('settings.twofactor');
+    Route::put('/settings/twofactor', 'TwoFactorSettingsController@update')->name('settings.twofactor.update');
 });

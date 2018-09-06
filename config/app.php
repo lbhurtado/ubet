@@ -167,8 +167,13 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /*
+         * Home-grown Service Providers...
+         */
         App\Providers\PermissionsServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
+        App\Providers\AuthyServiceProvider::class,
 
     ],
 
@@ -218,7 +223,10 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        /*
+         * Home-grown Service Facades...
+         */
+        'Authy' => \App\Facades\Authy::class,
     ],
 
 ];
