@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Generators\Identifier;
+use App\User;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

@@ -44,10 +44,8 @@ class AuthyService
     public function verifyToken($token, User $user = null)
     {
         try {
-            $verification = $this->client->verifyToken(
-                $user ? $user->authy_id : request()->session()->get('authy.authy_id'),
-                $token
-            );
+            $verification = $this->client
+                ->verifyToken($user ? $user->authy_id : request()->session()->get('authy.authy_id'), $token);
         } catch (AuthyFormatException $e) {
             throw new InvalidTokenException;
         }

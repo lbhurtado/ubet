@@ -10,7 +10,7 @@ namespace App\Permissions;
 
 use App\{Role, Permission};
 
-trait HasPermissionsTrait
+trait HasPermissions
 {
 
     public function givePermissionTo(...$permissions)

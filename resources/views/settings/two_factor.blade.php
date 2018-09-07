@@ -21,7 +21,7 @@
 
                                 <div class="col-md-6">
                                     <select name="two_factor_type" id="two_factor_type" class="form-control">
-                                        @foreach (config('twofactor.types') as $key => $name)
+                                        @foreach (config('two_factor.types') as $key => $name)
                                             <option value="{{ $key }}"{{ old('two_factor_type') === $key || Auth::user()->hasTwoFactorType($key) ? 'selected="selected"' : '' }}>{{ $name }}</option>
                                         @endforeach
                                     </select>

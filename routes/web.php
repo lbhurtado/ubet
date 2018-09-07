@@ -12,17 +12,20 @@
 */
 
 use App\User;
+use App\Repositories\Eloquent\Criteria\HasMobileNumber;
 
 Route::resource('articles', 'ArticleController');
 
-//Route::get('/', function () {
-//   DB::listen(function ($query) {
-//     var_dump($query->sql);
-//   });
-//
+Route::get('/', function (\App\Repositories\Contracts\UserRepository $users) {
+   DB::listen(function ($query) {
+     var_dump($query->sql);
+   });
+
 //   $user = User::find(1);
-//
-//   dd($user->phoneNumber->dialling_code->id);
+
+   $x = $users->withCriteria([new HasMobileNumber()])->all();
+
+   dd($x);
 
 //   $user->phoneNumber()->create([
 //      'phone_number' => '9173011987',
@@ -38,7 +41,7 @@ Route::resource('articles', 'ArticleController');
 //
 //   dd($user->messengers);
 
-//});
+});
 //Route::get('/', function (\Illuminate\Http\Request $request) {
 //    $user = $request->user();
 //
@@ -48,9 +51,9 @@ Route::resource('articles', 'ArticleController');
 //    var_dump($user->can('delete users'));
 //});
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Route::match(['get', 'post'], '/botman', 'BotManController@handle');
 Route::get('/botman/tinker', 'BotManController@tinker');

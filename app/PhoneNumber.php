@@ -13,13 +13,13 @@ class PhoneNumber extends Model
 
     public $table = 'phone_numbers';
 
-    public function diallingCode()
-    {
-        return $this->hasOne(DiallingCode::class, 'id', 'dialling_code_id');
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function diallingCode()
+    {
+        return $this->hasOne(DiallingCode::class, 'id', 'dialling_code_id');
     }
 }

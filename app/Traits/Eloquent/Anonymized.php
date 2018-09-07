@@ -11,9 +11,14 @@ namespace App\Traits\Eloquent;
 
 use App\Generators\Identifier;
 
-trait GeneratesIdentifier
+trait Anonymized
 {
-    public function generateIdentifier($id)
+    public function getIdentifierAttribute()
+    {
+        return $this->generateIdentifier($this->id);
+    }
+
+    protected function generateIdentifier($id)
     {
         return app(Identifier::class)->generate($id);
     }

@@ -10,7 +10,15 @@ namespace App\Generators;
 
 class Identifier
 {
+
     protected $cache;
+
+    public static function getSqlAlgorithm()
+    {
+        $sqlAlgorithm = "sha2(concat(users.id, '?'),256)";
+
+        return  str_replace('?', config('app.key'), $sqlAlgorithm);
+    }
 
     public function generate($id)
     {

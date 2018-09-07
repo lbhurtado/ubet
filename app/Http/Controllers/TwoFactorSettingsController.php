@@ -2,29 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\DiallingCode;
 use App\Facades\Authy;
 use Illuminate\Http\Request;
+use App\Http\Requests\TwoFactorSettingsRequest;
+use App\Repositories\Contracts\DiallingCodeRepository;
 use App\Services\Authy\Exceptions\RegistrationFailedException;
 
 class TwoFactorSettingsController extends Controller
 {
-    public function index()
+    public function index(DiallingCodeRepository $dialling_codes)
     {
-        return view('settings.twofactor')->with([
-            'diallingCodes' => DiallingCode::all(),
+        return view('settings.two_factor')->with([
+            'diallingCodes' => $dialling_codes->all(),
         ]);
     }
 
-    public function update(Request $request)
+    public function update(TwoFactorSettingsRequest $request)
     {
-
-        $this->validate($request, [
-            'two_factor_type' => 'required|in:' . implode(',', array_keys(config('twofactor.types'))),
-            'phone_number' => 'required_unless:two_factor_type,off',
-            'phone_number_dialling_code' => 'required_unless:two_factor_type,off|exists:dialling_codes,id',
-        ]);
-
         $user = $request->user();
 
         $user->updatePhoneNumber($request->phone_number, $request->phone_number_dialling_code);
@@ -37,8 +31,8 @@ class TwoFactorSettingsController extends Controller
                 return redirect()->back();
             }
         }
-
         $user->two_factor_type = $request->two_factor_type;
+
         $user->save();
 
         return redirect()->back();
