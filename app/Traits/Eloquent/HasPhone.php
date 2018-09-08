@@ -8,7 +8,7 @@
 
 namespace App\Traits\Eloquent;
 
-
+use App\PhoneNumber;
 use App\Repositories\Contracts\UserRepository;
 use Illuminate\Database\Eloquent\Builder;
 

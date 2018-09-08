@@ -18,6 +18,7 @@ trait HasPermissions
         $permissions = $this->getAllPermissions(array_flatten($permissions));
 
         if ($permissions === null) {
+
             return $this;
         }
 

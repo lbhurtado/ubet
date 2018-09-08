@@ -12,7 +12,9 @@
 */
 
 use App\User;
+use App\Admin;
 use App\Repositories\Eloquent\Criteria\HasMobileNumber;
+use App\Repositories\Eloquent\Criteria\HasRole;
 
 Route::resource('articles', 'ArticleController');
 
@@ -23,7 +25,11 @@ Route::get('/', function (\App\Repositories\Contracts\UserRepository $users) {
 
 //   $user = User::find(1);
 
-   $x = $users->withCriteria([new HasMobileNumber()])->all();
+    dd(Admin::wherehas('roles', function ($query){
+        $query->whereIn('name', ['admin']);
+    })->get());
+
+   $x = $users->withCriteria([new HasRole('admin')])->all();
 
    dd($x);
 

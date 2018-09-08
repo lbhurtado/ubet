@@ -2,13 +2,13 @@
 
 namespace App\Providers;
 
-use App\Repositories\Eloquent\{
+use App\Repositories\Eloquent\{EloquentRoleRepository,
     EloquentUserRepository,
     EloquentArticleRepository,
     EloquentAddressRepository,
     EloquentMessengerRepository,
     EloquentDiallingCodeRepository};
-use App\Repositories\Contracts\{
+use App\Repositories\Contracts\{RoleRepository,
     UserRepository,
     ArticleRepository,
     AddressRepository,
@@ -26,6 +26,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->bind(UserRepository::class, EloquentUserRepository::class);
+        $this->app->bind(RoleRepository::class, EloquentRoleRepository::class);
         $this->app->bind(ArticleRepository::class, EloquentArticleRepository::class);
         $this->app->bind(AddressRepository::class, EloquentAddressRepository::class);
         $this->app->bind(DiallingCodeRepository::class, EloquentDiallingCodeRepository::class);

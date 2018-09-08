@@ -6,12 +6,13 @@ use App\Traits\Eloquent\HasPhone;
 use App\Permissions\HasPermissions;
 use App\Traits\Eloquent\Anonymized;
 use Illuminate\Notifications\Notifiable;
+use Tightenco\Parental\ReturnsChildModels;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
 class User extends Authenticatable
 {
-    use Notifiable, Anonymized, HasPermissions, HasPhone;
+    use Notifiable, ReturnsChildModels, Anonymized, HasPermissions, HasPhone;
 
     protected $fillable = [
         'name', 'email', 'password',
@@ -20,9 +21,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    public $table = 'users';
-
 
     public function addresses()
     {
